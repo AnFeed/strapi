@@ -18,8 +18,8 @@
     "email": {
       "type": "email"
     },
-    "message": {
-      "type": "text"
+    "phone": {
+      "type": "string"
     },
     "file": {
       "type": "media",

@@ -376,7 +376,7 @@ export interface ApiCareerCareer extends Schema.CollectionType {
   attributes: {
     name: Attribute.String;
     email: Attribute.Email;
-    message: Attribute.Text;
+    phone: Attribute.String;
     file: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
