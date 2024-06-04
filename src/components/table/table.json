@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_table_tables",
+  "info": {
+    "displayName": "Table",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "row": {
+      "displayName": "Row",
+      "type": "component",
+      "repeatable": true,
+      "component": "table.row"
+    }
+  }
+}
