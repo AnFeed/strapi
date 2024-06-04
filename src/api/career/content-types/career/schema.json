@@ -28,6 +28,9 @@
       "allowedTypes": [
         "files"
       ]
+    },
+    "CareerPost": {
+      "type": "string"
     }
   }
 }

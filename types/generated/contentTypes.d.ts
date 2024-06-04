@@ -835,55 +835,12 @@ export interface ApiBlogBlog extends Schema.CollectionType {
     Image: Attribute.Media & Attribute.Required;
     Description: Attribute.RichText;
     Priority: Attribute.Integer & Attribute.Required;
-    Blog_categories: Attribute.Relation<
-      'api::blog.blog',
-      'manyToMany',
-      'api::blog-category.blog-category'
-    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
-export interface ApiBlogCategoryBlogCategory extends Schema.CollectionType {
-  collectionName: 'blog_categories';
-  info: {
-    singularName: 'blog-category';
-    pluralName: 'blog-categories';
-    displayName: 'BlogCategory';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Name: Attribute.String & Attribute.Required;
-    Slug: Attribute.UID<'api::blog-category.blog-category', 'Name'> &
-      Attribute.Required;
-    Blogs: Attribute.Relation<
-      'api::blog-category.blog-category',
-      'manyToMany',
-      'api::blog.blog'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::blog-category.blog-category',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::blog-category.blog-category',
-      'oneToOne',
-      'admin::user'
-    > &
       Attribute.Private;
   };
 }
@@ -904,6 +861,7 @@ export interface ApiCareerCareer extends Schema.CollectionType {
     email: Attribute.Email;
     phone: Attribute.String;
     file: Attribute.Media;
+    CareerPost: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -936,10 +894,76 @@ export interface ApiCarrierCarrier extends Schema.CollectionType {
   attributes: {
     Name: Attribute.String & Attribute.Required;
     ShortDesc: Attribute.Text & Attribute.Required;
-    Icon: Attribute.Media & Attribute.Required;
     Image: Attribute.Media & Attribute.Required;
     Description: Attribute.RichText & Attribute.Required;
     Priority: Attribute.Integer;
+    Icon: Attribute.Enumeration<
+      [
+        'flaticon-checkmark',
+        'flaticon-solution',
+        'flaticon-telephone-symbol-button',
+        'flaticon-email',
+        'flaticon-location',
+        'flaticon-play',
+        'flaticon-server',
+        'flaticon-technical-support',
+        'flaticon-solution-1',
+        'flaticon-speed',
+        'flaticon-data-protection',
+        'flaticon-optimization',
+        'flaticon-globe',
+        'flaticon-android',
+        'flaticon-apple',
+        'flaticon-internet-of-things',
+        'flaticon-smartwatch',
+        'flaticon-tv',
+        'flaticon-ux-design',
+        'flaticon-data-visualization',
+        'flaticon-search-engine',
+        'flaticon-advertisig-agency',
+        'flaticon-tick-inside-circle',
+        'flaticon-project',
+        'flaticon-design',
+        'flaticon-star',
+        'flaticon-star-1',
+        'flaticon-call',
+        'flaticon-project-management',
+        'flaticon-worldwide',
+        'flaticon-quote',
+        'flaticon-product-design',
+        'flaticon-technology',
+        'flaticon-bank-account',
+        'flaticon-healthcare',
+        'flaticon-open-book',
+        'flaticon-manufacturing',
+        'flaticon-share',
+        'flaticon-share-1',
+        'flaticon-scribble',
+        'flaticon-rocket',
+        'flaticon-airplane',
+        'flaticon-consultant',
+        'flaticon-coding',
+        'flaticon-medal',
+        'flaticon-quote-1',
+        'flaticon-shopping-cart',
+        'flaticon-user',
+        'flaticon-phone-call',
+        'flaticon-email-1',
+        'flaticon-edit',
+        'flaticon-location-1',
+        'flaticon-down-arrow',
+        'flaticon-envelope',
+        'flaticon-profile',
+        'flaticon-information',
+        'flaticon-settings',
+        'flaticon-search',
+        'flaticon-gear',
+        'flaticon-info',
+        'flaticon-tick',
+        'flaticon-love',
+        'flaticon-right-arrow'
+      ]
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1115,7 +1139,6 @@ declare module '@strapi/types' {
       'plugin::i18n.locale': PluginI18NLocale;
       'plugin::email-designer.email-template': PluginEmailDesignerEmailTemplate;
       'api::blog.blog': ApiBlogBlog;
-      'api::blog-category.blog-category': ApiBlogCategoryBlogCategory;
       'api::career.career': ApiCareerCareer;
       'api::carrier.carrier': ApiCarrierCarrier;
       'api::contact.contact': ApiContactContact;

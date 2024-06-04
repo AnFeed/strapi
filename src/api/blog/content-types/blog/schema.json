@@ -39,12 +39,6 @@
     "Priority": {
       "type": "integer",
       "required": true
-    },
-    "Blog_categories": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::blog-category.blog-category",
-      "inversedBy": "Blogs"
     }
   }
 }
