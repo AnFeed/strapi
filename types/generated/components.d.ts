@@ -155,9 +155,10 @@ export interface TestTest extends Schema.Component {
   collectionName: 'components_test_tests';
   info: {
     displayName: 'test';
+    description: '';
   };
   attributes: {
-    test: Attribute.String;
+    testttttt: Attribute.String;
   };
 }
 
