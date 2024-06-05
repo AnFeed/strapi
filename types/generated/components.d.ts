@@ -31,6 +31,30 @@ export interface ProductTitle extends Schema.Component {
   };
 }
 
+export interface ServiceItem extends Schema.Component {
+  collectionName: 'components_service_items';
+  info: {
+    displayName: 'Item';
+  };
+  attributes: {
+    Title: Attribute.String;
+  };
+}
+
+export interface ServiceServiceItem extends Schema.Component {
+  collectionName: 'components_service_service_items';
+  info: {
+    displayName: 'ServiceItem';
+    description: '';
+  };
+  attributes: {
+    Title: Attribute.String & Attribute.Required;
+    Description: Attribute.RichText;
+    Image: Attribute.Media & Attribute.Required;
+    Items: Attribute.Component<'service.item', true>;
+  };
+}
+
 export interface SharedMetaSocial extends Schema.Component {
   collectionName: 'components_shared_meta_socials';
   info: {
@@ -119,6 +143,8 @@ declare module '@strapi/types' {
       'product.description': ProductDescription;
       'product.imagine': ProductImagine;
       'product.title': ProductTitle;
+      'service.item': ServiceItem;
+      'service.service-item': ServiceServiceItem;
       'shared.meta-social': SharedMetaSocial;
       'shared.seo': SharedSeo;
       'table.column': TableColumn;

@@ -1046,6 +1046,36 @@ export interface ApiNewsletterNewsletter extends Schema.CollectionType {
   };
 }
 
+export interface ApiPartnerPartner extends Schema.CollectionType {
+  collectionName: 'partners';
+  info: {
+    singularName: 'partner';
+    pluralName: 'partners';
+    displayName: 'Partner';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Image: Attribute.Media & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::partner.partner',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::partner.partner',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiProductProduct extends Schema.CollectionType {
   collectionName: 'products';
   info: {
@@ -1078,6 +1108,41 @@ export interface ApiProductProduct extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiServiceService extends Schema.CollectionType {
+  collectionName: 'services';
+  info: {
+    singularName: 'service';
+    pluralName: 'services';
+    displayName: 'Service';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Title: Attribute.String;
+    Description: Attribute.RichText;
+    Image: Attribute.Media & Attribute.Required;
+    ButtonName: Attribute.String;
+    ButtonLink: Attribute.String;
+    ServiceComponents: Attribute.DynamicZone<['service.service-item']>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::service.service',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::service.service',
       'oneToOne',
       'admin::user'
     > &
@@ -1143,7 +1208,9 @@ declare module '@strapi/types' {
       'api::carrier.carrier': ApiCarrierCarrier;
       'api::contact.contact': ApiContactContact;
       'api::newsletter.newsletter': ApiNewsletterNewsletter;
+      'api::partner.partner': ApiPartnerPartner;
       'api::product.product': ApiProductProduct;
+      'api::service.service': ApiServiceService;
       'api::testimonail.testimonail': ApiTestimonailTestimonail;
     }
   }

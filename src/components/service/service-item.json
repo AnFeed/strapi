@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_service_service_items",
+  "info": {
+    "displayName": "ServiceItem",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "type": "richtext"
+    },
+    "Image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "Items": {
+      "displayName": "Item",
+      "type": "component",
+      "repeatable": true,
+      "component": "service.item"
+    }
+  }
+}
