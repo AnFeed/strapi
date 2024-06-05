@@ -10,7 +10,7 @@ export interface AboutNumber extends Schema.Component {
     Number: Attribute.Integer;
     Sufix: Attribute.String;
     Text: Attribute.String;
-    Image: Attribute.Media & Attribute.Required;
+    Icon: Attribute.Media & Attribute.Required;
   };
 }
 
