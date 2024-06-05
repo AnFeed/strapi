@@ -1153,6 +1153,7 @@ export interface ApiServiceService extends Schema.CollectionType {
     singularName: 'service';
     pluralName: 'services';
     displayName: 'Service';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1164,6 +1165,7 @@ export interface ApiServiceService extends Schema.CollectionType {
     ButtonName: Attribute.String;
     ButtonLink: Attribute.String;
     ServiceComponents: Attribute.DynamicZone<['service.service-item']>;
+    slug: Attribute.UID<'api::service.service', 'Title'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
