@@ -1,5 +1,17 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
+export interface AboutNumber extends Schema.Component {
+  collectionName: 'components_about_numbers';
+  info: {
+    displayName: 'Number';
+  };
+  attributes: {
+    Number: Attribute.Integer;
+    Sufix: Attribute.String;
+    Text: Attribute.String;
+  };
+}
+
 export interface ProductDescription extends Schema.Component {
   collectionName: 'components_product_descriptions';
   info: {
@@ -140,6 +152,7 @@ export interface TableTable extends Schema.Component {
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
+      'about.number': AboutNumber;
       'product.description': ProductDescription;
       'product.imagine': ProductImagine;
       'product.title': ProductTitle;

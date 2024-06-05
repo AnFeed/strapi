@@ -817,6 +817,36 @@ export interface PluginEmailDesignerEmailTemplate
   };
 }
 
+export interface ApiAboutNumberAboutNumber extends Schema.SingleType {
+  collectionName: 'about_numbers';
+  info: {
+    singularName: 'about-number';
+    pluralName: 'about-numbers';
+    displayName: 'About Number';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Number: Attribute.Component<'about.number', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::about-number.about-number',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::about-number.about-number',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiBlogBlog extends Schema.CollectionType {
   collectionName: 'blogs';
   info: {
@@ -1203,6 +1233,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
       'plugin::email-designer.email-template': PluginEmailDesignerEmailTemplate;
+      'api::about-number.about-number': ApiAboutNumberAboutNumber;
       'api::blog.blog': ApiBlogBlog;
       'api::career.career': ApiCareerCareer;
       'api::carrier.carrier': ApiCarrierCarrier;

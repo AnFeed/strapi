@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "about_numbers",
+  "info": {
+    "singularName": "about-number",
+    "pluralName": "about-numbers",
+    "displayName": "About Number"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Number": {
+      "displayName": "Number",
+      "type": "component",
+      "repeatable": true,
+      "component": "about.number"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_about_numbers",
+  "info": {
+    "displayName": "Number"
+  },
+  "options": {},
+  "attributes": {
+    "Number": {
+      "type": "integer"
+    },
+    "Sufix": {
+      "type": "string"
+    },
+    "Text": {
+      "type": "string"
+    }
+  }
+}
