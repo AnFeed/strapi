@@ -1165,7 +1165,7 @@ export interface ApiServiceService extends Schema.CollectionType {
     ButtonName: Attribute.String;
     ButtonLink: Attribute.String;
     ServiceComponents: Attribute.DynamicZone<['service.service-item']>;
-    slug: Attribute.UID<'api::service.service', 'Title'>;
+    slug: Attribute.UID<'api::service.service', 'Title'> & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
