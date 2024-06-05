@@ -102,6 +102,11 @@
         "flaticon-love",
         "flaticon-right-arrow"
       ]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "Name",
+      "required": true
     }
   }
 }

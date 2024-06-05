@@ -995,6 +995,7 @@ export interface ApiCarrierCarrier extends Schema.CollectionType {
         'flaticon-right-arrow'
       ]
     >;
+    slug: Attribute.UID<'api::carrier.carrier', 'Name'> & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
