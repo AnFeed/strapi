@@ -1,11 +1,19 @@
 {
   "collectionName": "components_about_numbers",
   "info": {
-    "displayName": "Number",
+    "displayName": "NumberItem",
     "description": ""
   },
   "options": {},
   "attributes": {
+    "Icon": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
     "Number": {
       "type": "integer"
     },
@@ -14,14 +22,6 @@
     },
     "Text": {
       "type": "string"
-    },
-    "Icon": {
-      "type": "media",
-      "multiple": false,
-      "required": true,
-      "allowedTypes": [
-        "images"
-      ]
     }
   }
 }

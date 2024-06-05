@@ -12,8 +12,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Number": {
-      "displayName": "Number",
+    "Item": {
       "type": "component",
       "repeatable": true,
       "component": "about.number"

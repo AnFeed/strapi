@@ -829,7 +829,7 @@ export interface ApiAboutNumberAboutNumber extends Schema.SingleType {
     draftAndPublish: true;
   };
   attributes: {
-    Number: Attribute.Component<'about.number', true>;
+    Item: Attribute.Component<'about.number', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

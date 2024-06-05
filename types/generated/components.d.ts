@@ -3,14 +3,14 @@ import type { Schema, Attribute } from '@strapi/strapi';
 export interface AboutNumber extends Schema.Component {
   collectionName: 'components_about_numbers';
   info: {
-    displayName: 'Number';
+    displayName: 'NumberItem';
     description: '';
   };
   attributes: {
+    Icon: Attribute.Media & Attribute.Required;
     Number: Attribute.Integer;
     Sufix: Attribute.String;
     Text: Attribute.String;
-    Icon: Attribute.Media & Attribute.Required;
   };
 }
 
