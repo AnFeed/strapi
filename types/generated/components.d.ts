@@ -151,6 +151,16 @@ export interface TableTable extends Schema.Component {
   };
 }
 
+export interface TestTest extends Schema.Component {
+  collectionName: 'components_test_tests';
+  info: {
+    displayName: 'test';
+  };
+  attributes: {
+    test: Attribute.String;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
@@ -165,6 +175,7 @@ declare module '@strapi/types' {
       'table.column': TableColumn;
       'table.row': TableRow;
       'table.table': TableTable;
+      'test.test': TestTest;
     }
   }
 }
