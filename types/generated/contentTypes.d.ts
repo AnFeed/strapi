@@ -823,6 +823,7 @@ export interface ApiAboutNumberAboutNumber extends Schema.SingleType {
     singularName: 'about-number';
     pluralName: 'about-numbers';
     displayName: 'About Number';
+    description: '';
   };
   options: {
     draftAndPublish: true;

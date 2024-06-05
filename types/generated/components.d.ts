@@ -4,11 +4,13 @@ export interface AboutNumber extends Schema.Component {
   collectionName: 'components_about_numbers';
   info: {
     displayName: 'Number';
+    description: '';
   };
   attributes: {
     Number: Attribute.Integer;
     Sufix: Attribute.String;
     Text: Attribute.String;
+    Image: Attribute.Media & Attribute.Required;
   };
 }
 

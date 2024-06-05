@@ -1,7 +1,8 @@
 {
   "collectionName": "components_about_numbers",
   "info": {
-    "displayName": "Number"
+    "displayName": "Number",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -13,6 +14,14 @@
     },
     "Text": {
       "type": "string"
+    },
+    "Image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
     }
   }
 }

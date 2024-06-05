@@ -4,7 +4,8 @@
   "info": {
     "singularName": "about-number",
     "pluralName": "about-numbers",
-    "displayName": "About Number"
+    "displayName": "About Number",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
