@@ -1514,10 +1514,10 @@
     redux-thunk "^2.4.2"
     reselect "^4.1.8"
 
-"@retikolo/drag-drop-content-types@^1.5.2":
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/@retikolo/drag-drop-content-types/-/drag-drop-content-types-1.5.2.tgz#447647d53d505ca3821df52dfe1bf58dfc9e4655"
-  integrity sha512-rOJJ1QT0fyOujtS6pgVZTvtbtV4qo54RbhwdUQKHix2aa++TzKPF9y8wb1zSHlkKfHLbRna7abMZJkdCG+7W6w==
+"@retikolo/drag-drop-content-types@^1.5.3":
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/@retikolo/drag-drop-content-types/-/drag-drop-content-types-1.5.3.tgz#7aa8904d2419fe14a552e52ba15aca8dadc6f977"
+  integrity sha512-smeuKRbEHawoSsc2tAtubsbVG9MzllvZJwKlgiS7g9+K0VNAKza5cGfF2X4CAS4HQ+CanCtiiW1xkdNtTvZI+A==
   dependencies:
     array-move "^4.0.0"
     react-sortable-hoc "^2.0.0"
