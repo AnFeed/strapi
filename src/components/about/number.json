@@ -20,7 +20,7 @@
     "Sufix": {
       "type": "string"
     },
-    "Text": {
+    "Name": {
       "type": "string"
     }
   }

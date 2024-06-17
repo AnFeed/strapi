@@ -14,7 +14,8 @@
   "attributes": {
     "Name": {
       "type": "string",
-      "required": true
+      "required": true,
+      "pluginOptions": {}
     },
     "Slug": {
       "type": "uid",
@@ -23,7 +24,8 @@
     },
     "ShortDesciption": {
       "type": "text",
-      "required": true
+      "required": true,
+      "pluginOptions": {}
     },
     "Image": {
       "type": "media",
@@ -31,14 +33,17 @@
       "required": true,
       "allowedTypes": [
         "images"
-      ]
+      ],
+      "pluginOptions": {}
     },
     "Description": {
-      "type": "richtext"
+      "type": "richtext",
+      "pluginOptions": {}
     },
     "Priority": {
       "type": "integer",
-      "required": true
+      "required": true,
+      "pluginOptions": {}
     }
   }
 }
