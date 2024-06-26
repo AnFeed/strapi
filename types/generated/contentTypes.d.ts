@@ -978,12 +978,46 @@ export interface ApiCarrierCarrier extends Schema.CollectionType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    Name: Attribute.String & Attribute.Required;
-    ShortDesc: Attribute.Text & Attribute.Required;
-    Image: Attribute.Media & Attribute.Required;
-    Description: Attribute.RichText & Attribute.Required;
-    Priority: Attribute.Integer;
+    Name: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    ShortDesc: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Image: Attribute.Media &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Description: Attribute.RichText &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Priority: Attribute.Integer &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     Icon: Attribute.Enumeration<
       [
         'flaticon-checkmark',
@@ -1050,7 +1084,12 @@ export interface ApiCarrierCarrier extends Schema.CollectionType {
         'flaticon-love',
         'flaticon-right-arrow'
       ]
-    >;
+    > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     slug: Attribute.UID<'api::carrier.carrier', 'Name'> & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1067,6 +1106,12 @@ export interface ApiCarrierCarrier extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::carrier.carrier',
+      'oneToMany',
+      'api::carrier.carrier'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -1175,16 +1220,55 @@ export interface ApiProductProduct extends Schema.CollectionType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    Name: Attribute.String & Attribute.Required;
+    Name: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     Description: Attribute.DynamicZone<
       ['table.table', 'product.description', 'product.imagine', 'product.title']
-    >;
-    ShortDescription: Attribute.RichText & Attribute.Required;
-    Image: Attribute.Media & Attribute.Required;
+    > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    ShortDescription: Attribute.RichText &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Image: Attribute.Media &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     slug: Attribute.UID<'api::product.product', 'Name'> & Attribute.Required;
-    seo: Attribute.Component<'shared.seo', true>;
-    Priority: Attribute.Integer & Attribute.Required;
+    seo: Attribute.Component<'shared.seo', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Priority: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1200,6 +1284,12 @@ export interface ApiProductProduct extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::product.product',
+      'oneToMany',
+      'api::product.product'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -1214,13 +1304,49 @@ export interface ApiServiceService extends Schema.CollectionType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    Title: Attribute.String;
-    Description: Attribute.RichText;
-    Image: Attribute.Media & Attribute.Required;
-    ButtonName: Attribute.String;
-    ButtonLink: Attribute.String;
-    ServiceComponents: Attribute.DynamicZone<['service.service-item']>;
+    Title: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Description: Attribute.RichText &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Image: Attribute.Media &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    ButtonName: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    ButtonLink: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    ServiceComponents: Attribute.DynamicZone<['service.service-item']> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     slug: Attribute.UID<'api::service.service', 'Title'> & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1237,6 +1363,12 @@ export interface ApiServiceService extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::service.service',
+      'oneToMany',
+      'api::service.service'
+    >;
+    locale: Attribute.String;
   };
 }
 
