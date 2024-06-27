@@ -1354,7 +1354,12 @@ export interface ApiServiceService extends Schema.CollectionType {
         };
       }>;
     ServiceComponents: Attribute.DynamicZone<
-      ['service.service-item', 'table.table']
+      [
+        'service.service-item',
+        'table.table',
+        'product.description',
+        'product.title'
+      ]
     > &
       Attribute.SetPluginOptions<{
         i18n: {

@@ -65,7 +65,9 @@
       "type": "dynamiczone",
       "components": [
         "service.service-item",
-        "table.table"
+        "table.table",
+        "product.description",
+        "product.title"
       ],
       "pluginOptions": {
         "i18n": {
