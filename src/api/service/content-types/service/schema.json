@@ -64,7 +64,8 @@
     "ServiceComponents": {
       "type": "dynamiczone",
       "components": [
-        "service.service-item"
+        "service.service-item",
+        "table.table"
       ],
       "pluginOptions": {
         "i18n": {

@@ -1353,7 +1353,9 @@ export interface ApiServiceService extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    ServiceComponents: Attribute.DynamicZone<['service.service-item']> &
+    ServiceComponents: Attribute.DynamicZone<
+      ['service.service-item', 'table.table']
+    > &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
