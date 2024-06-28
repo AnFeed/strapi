@@ -916,6 +916,12 @@ export interface ApiBlogBlog extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    seo: Attribute.Component<'shared.seo'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1091,6 +1097,12 @@ export interface ApiCarrierCarrier extends Schema.CollectionType {
         };
       }>;
     slug: Attribute.UID<'api::carrier.carrier', 'Name'> & Attribute.Required;
+    seo: Attribute.Component<'shared.seo'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1465,6 +1477,12 @@ export interface ApiServiceService extends Schema.CollectionType {
         };
       }>;
     slug: Attribute.UID<'api::service.service', 'Title'> & Attribute.Required;
+    seo: Attribute.Component<'shared.seo'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

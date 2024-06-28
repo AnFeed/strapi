@@ -30,7 +30,7 @@ module.exports = {
             from: "levente.kiss@prismasolutions.ro",
           },
           {
-            templateReferenceId: 2,
+            templateReferenceId: 4,
             subject: `Anfeed - Mulțumim că ați completat formularul`,
           },
           {
