@@ -1180,6 +1180,42 @@ export interface ApiCookiePolicyCookiePolicy extends Schema.SingleType {
   };
 }
 
+export interface ApiDistribuitorDistribuitor extends Schema.CollectionType {
+  collectionName: 'distribuitors';
+  info: {
+    singularName: 'distribuitor';
+    pluralName: 'distribuitors';
+    displayName: 'Distribuitor';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    CompanyName: Attribute.String;
+    TaxNumber: Attribute.String;
+    ContactPersonName: Attribute.String;
+    PhoneNumber: Attribute.String;
+    EmailAddress: Attribute.String;
+    City: Attribute.String;
+    County: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::distribuitor.distribuitor',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::distribuitor.distribuitor',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiNewsletterNewsletter extends Schema.CollectionType {
   collectionName: 'newsletters';
   info: {
@@ -1544,6 +1580,7 @@ declare module '@strapi/types' {
       'api::carrier.carrier': ApiCarrierCarrier;
       'api::contact.contact': ApiContactContact;
       'api::cookie-policy.cookie-policy': ApiCookiePolicyCookiePolicy;
+      'api::distribuitor.distribuitor': ApiDistribuitorDistribuitor;
       'api::newsletter.newsletter': ApiNewsletterNewsletter;
       'api::partner.partner': ApiPartnerPartner;
       'api::privacy-policy.privacy-policy': ApiPrivacyPolicyPrivacyPolicy;

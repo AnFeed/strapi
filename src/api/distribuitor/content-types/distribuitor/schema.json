@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "distribuitors",
+  "info": {
+    "singularName": "distribuitor",
+    "pluralName": "distribuitors",
+    "displayName": "Distribuitor"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "CompanyName": {
+      "type": "string"
+    },
+    "TaxNumber": {
+      "type": "string"
+    },
+    "ContactPersonName": {
+      "type": "string"
+    },
+    "PhoneNumber": {
+      "type": "string"
+    },
+    "EmailAddress": {
+      "type": "string"
+    },
+    "City": {
+      "type": "string"
+    },
+    "County": {
+      "type": "string"
+    }
+  }
+}
