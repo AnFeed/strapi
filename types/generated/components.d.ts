@@ -49,6 +49,7 @@ export interface ServiceItem extends Schema.Component {
   collectionName: 'components_service_items';
   info: {
     displayName: 'Item';
+    description: '';
   };
   attributes: {
     Title: Attribute.String;

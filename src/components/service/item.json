@@ -1,7 +1,8 @@
 {
   "collectionName": "components_service_items",
   "info": {
-    "displayName": "Item"
+    "displayName": "Item",
+    "description": ""
   },
   "options": {},
   "attributes": {
