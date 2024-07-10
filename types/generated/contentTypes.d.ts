@@ -1228,6 +1228,37 @@ export interface ApiDistribuitorDistribuitor extends Schema.CollectionType {
   };
 }
 
+export interface ApiDistribuitorImageDistribuitorImage
+  extends Schema.CollectionType {
+  collectionName: 'distribuitor_images';
+  info: {
+    singularName: 'distribuitor-image';
+    pluralName: 'distribuitor-images';
+    displayName: 'DistribuitorImage';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Image: Attribute.Media & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::distribuitor-image.distribuitor-image',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::distribuitor-image.distribuitor-image',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiNewsletterNewsletter extends Schema.CollectionType {
   collectionName: 'newsletters';
   info: {
@@ -1507,6 +1538,37 @@ export interface ApiServiceService extends Schema.CollectionType {
   };
 }
 
+export interface ApiStoryStory extends Schema.SingleType {
+  collectionName: 'stories';
+  info: {
+    singularName: 'story';
+    pluralName: 'stories';
+    displayName: 'story';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    description: Attribute.RichText & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::story.story',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::story.story',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiTermsAndConditionTermsAndCondition
   extends Schema.SingleType {
   collectionName: 'terms_and_conditions';
@@ -1599,11 +1661,13 @@ declare module '@strapi/types' {
       'api::contact.contact': ApiContactContact;
       'api::cookie-policy.cookie-policy': ApiCookiePolicyCookiePolicy;
       'api::distribuitor.distribuitor': ApiDistribuitorDistribuitor;
+      'api::distribuitor-image.distribuitor-image': ApiDistribuitorImageDistribuitorImage;
       'api::newsletter.newsletter': ApiNewsletterNewsletter;
       'api::partner.partner': ApiPartnerPartner;
       'api::privacy-policy.privacy-policy': ApiPrivacyPolicyPrivacyPolicy;
       'api::product.product': ApiProductProduct;
       'api::service.service': ApiServiceService;
+      'api::story.story': ApiStoryStory;
       'api::terms-and-condition.terms-and-condition': ApiTermsAndConditionTermsAndCondition;
       'api::testimonail.testimonail': ApiTestimonailTestimonail;
     }

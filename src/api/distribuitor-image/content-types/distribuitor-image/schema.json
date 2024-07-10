@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "distribuitor_images",
+  "info": {
+    "singularName": "distribuitor-image",
+    "pluralName": "distribuitor-images",
+    "displayName": "DistribuitorImage"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}
