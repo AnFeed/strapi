@@ -12,7 +12,7 @@ module.exports = {
     try {
       await strapi.plugins["email-designer"].services.email.sendTemplatedEmail(
         {
-          to: email,
+          to: EmailAddress,
           from: "noreply@anfeed.ro",
         },
         {

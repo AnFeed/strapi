@@ -4,7 +4,7 @@ module.exports = {
     const FirstName = result.FirstName;
     const LastName = result.LastName;
     const Phone = result.Phone;
-    const Email = result.Email;
+    const email = result.Email;
     const Message = result.Message;
 
     try {
@@ -26,7 +26,7 @@ module.exports = {
         FirstName: ${FirstName}<br>
         LastName: ${LastName}<br>
         Phone: ${Phone}<br>
-        Email: ${Email}<br>
+        Email: ${email}<br>
         Message: ${Message}<br>
         `,
       });
