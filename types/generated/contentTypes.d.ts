@@ -1411,12 +1411,14 @@ export interface ApiProductProduct extends Schema.CollectionType {
         };
       }>;
     ButtonName: Attribute.String &
+      Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
     ButtonLink: Attribute.String &
+      Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

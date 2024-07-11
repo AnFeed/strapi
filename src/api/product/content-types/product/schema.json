@@ -91,7 +91,8 @@
           "localized": true
         }
       },
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "ButtonLink": {
       "pluginOptions": {
@@ -99,7 +100,8 @@
           "localized": true
         }
       },
-      "type": "string"
+      "type": "string",
+      "required": true
     }
   }
 }

@@ -28,14 +28,14 @@ module.exports = ({ env }) => ({
         host: "smtp.gmail.com",
         port: 465,
         auth: {
-          user: "levente.kiss@prismasolutions.ro",
-          pass: "igcx ncme grxj ehhr",
+          user: "noreply@anfeed.ro",
+          pass: "hzzh pzab fxqo wugk",
         },
         // ... any custom nodemailer options
       },
       settings: {
-        defaultFrom: "levente.kiss@prismasolutions.ro",
-        defaultReplyTo: "levente.kiss@prismasolutions.ro",
+        defaultFrom: "noreply@anfeed.ro",
+        defaultReplyTo: "anfeed@anfeed.ro",
       },
     },
   },

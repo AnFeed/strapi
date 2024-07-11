@@ -7,7 +7,7 @@ module.exports = {
       await strapi.plugins["email-designer"].services.email.sendTemplatedEmail(
         {
           to: Email,
-          from: "levente.kiss@prismasolutions.ro",
+          from: "noreply@anfeed.ro",
         },
         {
           templateReferenceId: 1,
@@ -16,7 +16,7 @@ module.exports = {
       );
       await strapi.plugins["email"].services.email.send({
         to: "attila2000.03.05@gmail.com",
-        from: "levente.kiss@prismasolutions.ro",
+        from: "noreply@anfeed.ro",
         subject: "Newsletter",
         html: `
         Email: ${Email}`,
