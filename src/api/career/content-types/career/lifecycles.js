@@ -39,7 +39,7 @@ module.exports = {
         );
 
         await strapi.plugins["email"].services.email.send({
-          to: "attila.szasz@prismasolutions.ro",
+          to: "comenzi@anfeed.ro",
           from: "noreply@anfeed.ro",
           subject: "Contact Form",
           html: `
