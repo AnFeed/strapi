@@ -78,6 +78,14 @@
         }
       },
       "component": "shared.seo"
+    },
+    "YoutubeVideoLink": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "string"
     }
   }
 }
