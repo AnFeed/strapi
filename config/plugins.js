@@ -29,7 +29,7 @@ module.exports = ({ env }) => ({
         port: 465,
         auth: {
           user: "noreply@anfeed.ro",
-          pass: "hzzh pzab fxqo wugk",
+          pass: env("SMTP_PASSWORD"),
         },
         // ... any custom nodemailer options
       },

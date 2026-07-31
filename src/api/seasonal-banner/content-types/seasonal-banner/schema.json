@@ -1,0 +1,33 @@
+{
+  "kind": "singleType",
+  "collectionName": "seasonal_banners",
+  "info": {
+    "singularName": "seasonal-banner",
+    "pluralName": "seasonal-banners",
+    "displayName": "SeasonalBanner"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "isActive": {
+      "type": "boolean"
+    },
+    "text_hu": {
+      "type": "text"
+    },
+    "text_ro": {
+      "type": "text"
+    },
+    "cta_hu": {
+      "type": "text"
+    },
+    "cta_ro": {
+      "type": "text"
+    },
+    "link": {
+      "type": "string"
+    }
+  }
+}

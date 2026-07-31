@@ -6,14 +6,6 @@
   },
   "options": {},
   "attributes": {
-    "Icon": {
-      "type": "media",
-      "multiple": false,
-      "required": true,
-      "allowedTypes": [
-        "images"
-      ]
-    },
     "Number": {
       "type": "integer"
     },

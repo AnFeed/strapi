@@ -19,7 +19,7 @@ module.exports = {
         }
       );
       await strapi.plugins["email"].services.email.send({
-        to: "comenzi@anfeed.ro",
+        to: ["anfeed@anfeed.ro", "bedoa@anfeed.ro", "manm@anfeed.ro", "laszloi@anfeed.ro"],
         from: "noreply@anfeed.ro",
         subject: "Contact",
         html: `

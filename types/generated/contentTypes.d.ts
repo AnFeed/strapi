@@ -1265,6 +1265,65 @@ export interface ApiDistribuitorImageDistribuitorImage
   };
 }
 
+export interface ApiFarmTestimonialFarmTestimonial
+  extends Schema.CollectionType {
+  collectionName: 'farm_testimonials';
+  info: {
+    singularName: 'farm-testimonial';
+    pluralName: 'farm-testimonials';
+    displayName: 'FarmTestimonial';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    statement: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    author: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    location: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::farm-testimonial.farm-testimonial',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::farm-testimonial.farm-testimonial',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::farm-testimonial.farm-testimonial',
+      'oneToMany',
+      'api::farm-testimonial.farm-testimonial'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiNewsletterNewsletter extends Schema.CollectionType {
   collectionName: 'newsletters';
   info: {
@@ -1451,6 +1510,41 @@ export interface ApiProductProduct extends Schema.CollectionType {
       'api::product.product'
     >;
     locale: Attribute.String;
+  };
+}
+
+export interface ApiSeasonalBannerSeasonalBanner extends Schema.SingleType {
+  collectionName: 'seasonal_banners';
+  info: {
+    singularName: 'seasonal-banner';
+    pluralName: 'seasonal-banners';
+    displayName: 'SeasonalBanner';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    isActive: Attribute.Boolean;
+    text_hu: Attribute.Text;
+    text_ro: Attribute.Text;
+    cta_hu: Attribute.Text;
+    cta_ro: Attribute.Text;
+    link: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::seasonal-banner.seasonal-banner',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::seasonal-banner.seasonal-banner',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
   };
 }
 
@@ -1694,10 +1788,12 @@ declare module '@strapi/types' {
       'api::cookie-policy.cookie-policy': ApiCookiePolicyCookiePolicy;
       'api::distribuitor.distribuitor': ApiDistribuitorDistribuitor;
       'api::distribuitor-image.distribuitor-image': ApiDistribuitorImageDistribuitorImage;
+      'api::farm-testimonial.farm-testimonial': ApiFarmTestimonialFarmTestimonial;
       'api::newsletter.newsletter': ApiNewsletterNewsletter;
       'api::partner.partner': ApiPartnerPartner;
       'api::privacy-policy.privacy-policy': ApiPrivacyPolicyPrivacyPolicy;
       'api::product.product': ApiProductProduct;
+      'api::seasonal-banner.seasonal-banner': ApiSeasonalBannerSeasonalBanner;
       'api::service.service': ApiServiceService;
       'api::story.story': ApiStoryStory;
       'api::terms-and-condition.terms-and-condition': ApiTermsAndConditionTermsAndCondition;
