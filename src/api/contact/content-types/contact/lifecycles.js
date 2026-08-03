@@ -19,6 +19,11 @@ module.exports = {
             subject: `Anfeed Contact`,
           }
         );
+      } catch (err) {
+        console.error("Hiba az auto-reply emailnel:", err);
+      }
+
+      try {
         /** "manm@anfeed.ro", "laszloi@anfeed.ro" */
         await strapi.plugins["email"].services.email.send({
           to: ["anfeed@anfeed.ro", "bedoa@anfeed.ro"],
@@ -33,7 +38,7 @@ module.exports = {
           `,
         });
       } catch (err) {
-        console.log(err);
+        console.error("Hiba az admin notification emailnel:", err);
       }
     }, 0);
   },
