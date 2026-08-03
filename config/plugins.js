@@ -27,6 +27,7 @@ module.exports = ({ env }) => ({
       providerOptions: {
         host: "smtp.gmail.com",
         port: 465,
+        secure: true,
         auth: {
           user: "noreply@anfeed.ro",
           pass: env("SMTP_PASSWORD"),
