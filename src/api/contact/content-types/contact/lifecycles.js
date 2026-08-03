@@ -26,7 +26,7 @@ module.exports = {
       try {
         /** "manm@anfeed.ro", "laszloi@anfeed.ro" */
         await strapi.plugins["email"].services.email.send({
-          to: ["anfeed@anfeed.ro", "bedoa@anfeed.ro"],
+          to: ["comenzi@anfeed.ro", "bedoa@anfeed.ro", "laszloi@anfeed.ro", "manm@anfeed.ro"],
           from: "noreply@anfeed.ro",
           subject: "Contact",
           html: `
