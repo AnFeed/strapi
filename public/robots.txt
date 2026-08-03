@@ -1,3 +1,314 @@
-# To prevent search engines from seeing the site altogether, uncomment the next two lines:
-# User-Agent: *
-# Disallow: /
+User-agent: *
+Allow: /
+
+# Explicitly allow AI bots (though * covers them)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: SemrushBot
+Allow: /
+
+User-agent: dotBot
+Allow: /
+
+User-agent: MJ12bot
+Allow: /
+
+User-agent: AhrefsBot
+Allow: /
+
+User-agent: SeznamBot
+Allow: /
+
+# Allow all search engines to crawl everything
+User-agent: Googlebot
+Allow: /
+
+User-agent: bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: BaiduSpider
+Allow: /
+
+User-agent: NaverBot
+Allow: /
+
+User-agent: FacebotSpider
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+User-agent: ZoominfoBot
+Allow: /
+
+User-agent: Sitebulb
+Allow: /
+
+User-agent: MJ12bot
+Allow: /
+
+User-agent: SemrushBot
+Allow: /
+
+User-agent: DotBot
+Allow: /
+
+User-agent: Seekbot
+Allow: /
+
+User-agent: PetalBot
+Allow: /
+
+User-agent: MeanPathBot
+Allow: /
+
+User-agent: Ezooms
+Allow: /
+
+User-agent: LinkPadBot
+Allow: /
+
+User-agent: AhrefsBot
+Allow: /
+
+User-agent: sitecheck.pro
+Allow: /
+
+User-agent: 007Crawler
+Allow: /
+
+User-agent: AMPHTML
+Allow: /
+
+User-agent: AMPBot
+Allow: /
+
+User-agent: BLEXBot
+Allow: /
+
+User-agent: BrightonSoftBot
+Allow: /
+
+User-agent: Buster
+Allow: /
+
+User-agent: ChinaLover
+Allow: /
+
+User-agent: Collector
+Allow: /
+
+User-agent: CooiCookiBot
+Allow: /
+
+User-agent: CTBot
+Allow: /
+
+User-agent: CyberArk
+Allow: /
+
+User-agent: Discobot
+Allow: /
+
+User-agent: DotBot
+Allow: /
+
+User-agent: DragonFly
+Allow: /
+
+User-agent: Exalead
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Facemash
+Allow: /
+
+User-agent: FastCrawler
+Allow: /
+
+User-agent: FlipBot
+Allow: /
+
+User-agent: GENebugler
+Allow: /
+
+User-agent: Gigabot
+Allow: /
+
+User-agent: Hans
+Allow: /
+
+User-agent: Humans.txt
+Allow: /
+
+User-agent: ICONpark
+Allow: /
+
+User-agent: ICONic
+Allow: /
+
+User-agent: IBM
+Allow: /
+
+User-agent: IE
+Allow: /
+
+User-agent: InstaLooter
+Allow: /
+
+User-agent: InternetArchive
+Allow: /
+
+User-agent: IskSpider
+Allow: /
+
+User-agent: J.C.R.C.
+Allow: /
+
+User-agent: JourneyBot
+Allow: /
+
+User-agent: MJ12bot
+Allow: /
+
+User-agent: NetResearch
+Allow: /
+
+User-agent: NSBot
+Allow: /
+
+User-agent: Nutch
+Allow: /
+
+User-agent: PMBot
+Allow: /
+
+User-agent: PromptBot
+Allow: /
+
+User-agent: PRBot
+Allow: /
+
+User-agent: Python
+Allow: /
+
+User-agent: R getInstance:
+Allow: /
+
+User-agent: Rogerbot
+Allow: /
+
+User-agent: SemrushBot
+Allow: /
+
+User-agent: SeznamBot
+Allow: /
+
+User-agent: Sitebulb
+Allow: /
+
+User-agent: Sitespider
+Allow: /
+
+User-agent: SLURP
+Allow: /
+
+User-agent: SiteSucker
+Allow: /
+
+User-agent: Snoopbot
+Allow: /
+
+User-agent: Sogou
+Allow: /
+
+User-agent: Squid
+Allow: /
+
+User-agent: SurveyBot
+Allow: /
+
+User-agent: SzukaczSpider
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+User-agent: Telegram
+Allow: /
+
+User-agent: TianhaSpider
+Allow: /
+
+User-agent: TrendCrawler
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: UberallBot
+Allow: /
+
+User-agent: Uptrends
+Allow: /
+
+User-agent: UptimeBot
+Allow: /
+
+User-agent: Vanguard
+Allow: /
+
+User-agent: VascoBot
+Allow: /
+
+User-agent: WeChatBot
+Allow: /
+
+User-agent: wordlift
+Allow: /
+
+User-agent: WordPress
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+User-agent: Zgrab
+Allow: /
+
+User-agent: Zgrab
+Allow: /
+
+User-agent: z Spyder
+Allow: /
+
+# Disable specific bot for API (optional)
+User-agent: SomeBadBot
+Disallow: /api/
