@@ -7,32 +7,34 @@ module.exports = {
     const email = result.Email;
     const Message = result.Message;
 
-    try {
-      await strapi.plugins["email-designer"].services.email.sendTemplatedEmail(
-        {
-          to: email,
+    setTimeout(async () => {
+      try {
+        await strapi.plugins["email-designer"].services.email.sendTemplatedEmail(
+          {
+            to: email,
+            from: "noreply@anfeed.ro",
+          },
+          {
+            templateReferenceId: 2,
+            subject: `Anfeed Contact`,
+          }
+        );
+        /** "manm@anfeed.ro", "laszloi@anfeed.ro" */
+        await strapi.plugins["email"].services.email.send({
+          to: ["anfeed@anfeed.ro", "bedoa@anfeed.ro"],
           from: "noreply@anfeed.ro",
-        },
-        {
-          templateReferenceId: 2,
-          subject: `Anfeed Contact`,
-        }
-      );
-      /** "manm@anfeed.ro", "laszloi@anfeed.ro" */
-      await strapi.plugins["email"].services.email.send({
-        to: ["anfeed@anfeed.ro", "bedoa@anfeed.ro"],
-        from: "noreply@anfeed.ro",
-        subject: "Contact",
-        html: `
-        FirstName: ${FirstName}<br>
-        LastName: ${LastName}<br>
-        Phone: ${Phone}<br>
-        Email: ${email}<br>
-        Message: ${Message}<br>
-        `,
-      });
-    } catch (err) {
-      console.log(err);
-    }
+          subject: "Contact",
+          html: `
+          FirstName: ${FirstName}<br>
+          LastName: ${LastName}<br>
+          Phone: ${Phone}<br>
+          Email: ${email}<br>
+          Message: ${Message}<br>
+          `,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }, 0);
   },
 };
