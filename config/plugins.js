@@ -23,16 +23,9 @@ module.exports = ({ env }) => ({
   },
   email: {
     config: {
-      provider: "nodemailer",
+      provider: "strapi-provider-email-resend",
       providerOptions: {
-        host: "smtp.gmail.com",
-        port: 587,
-        secure: false, // port 587 esetén false (STARTTLS-t használ)
-        auth: {
-          user: "noreply@anfeed.ro",
-          pass: env("SMTP_PASSWORD"),
-        },
-        // ... any custom nodemailer options
+        apiKey: env("RESEND_API_KEY"),
       },
       settings: {
         defaultFrom: "noreply@anfeed.ro",

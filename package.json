@@ -9,7 +9,6 @@
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "devDependencies": {},
   "dependencies": {
     "@retikolo/drag-drop-content-types": "^1.5.2",
     "@strapi/plugin-i18n": "4.17.1",
@@ -24,6 +23,7 @@
     "react-router-dom": "^5.2.0",
     "strapi-plugin-email-designer": "^2.2.1",
     "strapi-plugin-populate-deep": "^3.0.1",
+    "strapi-provider-email-resend": "^1.0.4",
     "styled-components": "^5.2.1"
   },
   "author": {
