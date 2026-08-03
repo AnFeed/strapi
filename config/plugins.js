@@ -25,9 +25,7 @@ module.exports = ({ env }) => ({
     config: {
       provider: "nodemailer",
       providerOptions: {
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
+        service: "gmail",
         auth: {
           user: "noreply@anfeed.ro",
           pass: env("SMTP_PASSWORD"),
