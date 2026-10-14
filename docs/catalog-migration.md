@@ -13,9 +13,9 @@ The existing `Product` collection contains seven older category pages and is use
 
 ## Source preparation
 
-`python3 scripts/prepare-catalog.py /path/to/workbook.xlsx` regenerates a local, ignored `data/catalog-import-draft.json` (requires `openpyxl`). The export has 7 categories, 52 unique product codes, and a `review` array. Its `publicationState` is `draft`; the file is **not** a Strapi API payload and is not auto-imported. The original spreadsheet remains the editorial source until the import is approved. Do not commit the unpublished content to this public repository.
+`python3 scripts/prepare-catalog.py /path/to/workbook.xlsx` regenerates a local, ignored `data/catalog-import-draft.json` (requires `openpyxl`). A live Google Sheets snapshot can also be passed as JSON: the two tab names map to row arrays including header rows. The export has 7 categories, 52 unique product codes, `review` and `pending` arrays. Its `publicationState` is `draft`; the file is **not** a Strapi API payload and is not auto-imported. The Google Sheet remains the editorial source. Do not commit the unpublished content or live snapshot to this public repository.
 
-Review flags missing slugs, duplicate HU/RO slugs, absent Romanian ingredients and image alt text where present in the source. Unknown availability is listed separately under `pending`; leave it blank rather than inventing a value. Images are intentionally absent for all 52 products. Validate a fresh copy of the editorial workbook before import. The local copy used for the first export predates the user's stated corrections and must not be treated as the corrected version.
+Review flags missing slugs, duplicate HU/RO slugs, absent Romanian ingredients and image alt text where present in the source. Unknown availability is listed separately under `pending`; leave it blank rather than inventing a value. Images are intentionally absent for all 52 products. Rerun the export against the live Google Sheet before importing drafts.
 
 ## Rollout
 
