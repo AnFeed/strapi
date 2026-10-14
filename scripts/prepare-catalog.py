@@ -51,6 +51,14 @@ def slug_pair(value):
     return split(value, shared=True)
 
 
+def category_slugs(value):
+    # The source has both "path / path" and "path/ /path" separators.
+    paths = re.findall(r"/shop-details/([^/\s]+)", str(value or ""))
+    if len(paths) == 2:
+        return dict(zip(("hu", "ro"), paths))
+    return {"hu": None, "ro": None}
+
+
 def packages(value):
     text = str(value or "").lower().replace(" ", "")
     mapping = [("1kg", "kg_1"), ("5kg", "kg_5"),
@@ -79,6 +87,7 @@ def rows(workbook, sheet):
 
 def prepare(workbook):
     categories = []
+    review = []
     seen = set()
     for row in rows(workbook, "Kategóriák és alkategóriák"):
         if not row[0] or row[0] in seen:
@@ -86,12 +95,13 @@ def prepare(workbook):
         seen.add(row[0])
         names = split(row[0])
         key = CATEGORY_CODES[names["hu"]]
-        paths = split(row[2])
+        slugs = category_slugs(row[2])
+        if not all(slugs.values()):
+            review.append({"categoryCode": key, "issue": "missing localized category slug"})
         categories.append({
             "categoryCode": key,
             "name": names,
-            "slug": {lang: (paths[lang] or "").strip("/").split("/")[-1]
-                     for lang in ("hu", "ro")},
+            "slug": slugs,
             "introduction": split(row[4]),
             "seoTitle": split(row[5]),
             "metaDescription": split(row[6]),
@@ -99,7 +109,6 @@ def prepare(workbook):
         })
 
     products = []
-    review = []
     pending = []
     for row_no, row in enumerate(rows(workbook, "Termékkártyák"), 2):
         if not row[2]:
