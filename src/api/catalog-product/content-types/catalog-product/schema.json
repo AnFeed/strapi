@@ -5,7 +5,7 @@
     "singularName": "catalog-product",
     "pluralName": "catalog-products",
     "displayName": "Catalog product",
-    "description": "Individual bilingual feed products, identified by product code."
+    "description": "Individual bilingual catalog products, identified by product code."
   },
   "options": { "draftAndPublish": true },
   "pluginOptions": { "i18n": { "localized": true } },
@@ -32,10 +32,19 @@
     "feedType": { "type": "string" },
     "lifeStage": { "type": "string" },
     "introduction": { "type": "text" },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"],
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "imageAlt": { "type": "string" },
     "forms": {
       "type": "component",
       "repeatable": true,
-      "component": "catalog.form-variant"
+      "component": "catalog.form-variant",
+      "pluginOptions": { "i18n": { "localized": false } }
     },
     "packages": {
       "type": "component",
