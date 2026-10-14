@@ -91,6 +91,7 @@ def prepare(workbook):
 
     products = []
     review = []
+    pending = []
     for row_no, row in enumerate(workbook["Termékkártyák"].iter_rows(min_row=2, values_only=True), 2):
         if not row[2]:
             continue
@@ -127,13 +128,10 @@ def prepare(workbook):
         if not item["imageAlt"]["ro"]:
             review.append({"row": row_no, "productCode": product_code, "issue": "missing Romanian image alt text"})
         if not item["availability"]:
-            review.append({"row": row_no, "productCode": product_code, "issue": "missing availability"})
-        if not item["forms"]:
-            review.append({"row": row_no, "productCode": product_code, "issue": "missing feed form"})
-        if not item["analyticalValues"]:
-            review.append({"row": row_no, "productCode": product_code, "issue": "missing analytical values"})
-        if not item["labelFileName"]:
-            review.append({"row": row_no, "productCode": product_code, "issue": "missing label PDF name"})
+            pending.append({"row": row_no, "productCode": product_code,
+                            "issue": "availability unknown; leave blank until confirmed"})
+        # Feed form, analytical values and PDF are optional. Some catalog items
+        # are supplements or raw materials, and some have no such source data.
         products.append(item)
 
     assert len(categories) == 7 and len(products) == 52
@@ -146,8 +144,8 @@ def prepare(workbook):
                 review.append({"productCode": item["productCode"], "issue":
                                f"duplicate {locale} slug with {used[slug]}: {slug}"})
             used[slug] = item["productCode"]
-    return {"source": "Product development workbook, 2026-10-14", "categories": categories,
-            "products": products, "review": review}
+    return {"source": "Product development workbook", "categories": categories,
+            "products": products, "review": review, "pending": pending}
 
 
 if __name__ == "__main__":
@@ -156,4 +154,4 @@ if __name__ == "__main__":
     out.parent.mkdir(exist_ok=True)
     out.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"{len(data['categories'])} categories, {len(data['products'])} products, "
-          f"{len(data['review'])} review items: {out}")
+          f"{len(data['review'])} review items, {len(data['pending'])} pending availability decisions: {out}")
