@@ -1,0 +1,11 @@
+{
+  "collectionName": "components_catalog_package_options",
+  "info": { "displayName": "Package option" },
+  "attributes": {
+    "size": {
+      "type": "enumeration",
+      "enum": ["kg_1", "kg_5", "kg_20", "kg_25", "big_bag", "bulk"],
+      "required": true
+    }
+  }
+}

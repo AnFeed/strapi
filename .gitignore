@@ -113,3 +113,5 @@ exports
 build
 .strapi-updater.json
 .strapi
+# Unpublished product catalog export from the private editorial workbook
+data/catalog-import-draft.json
