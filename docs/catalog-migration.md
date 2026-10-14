@@ -5,17 +5,17 @@ The existing `Product` collection contains seven older category pages and is use
 ## Editorial fields
 
 - Product code is the stable identifier; the HU and RO records are one localized product. Slugs, names, introductions, category copy, usage, benefits, and SEO text are editable per language.
-- Availability has `in_store` and `preorder` values. A missing value remains blank until editorial confirmation.
-- Forms and packaging are repeatable fields. Each form may later receive an image from the existing Cloudinary-backed Strapi Media Library and localized alternative text. No image is required to save a draft.
+- Availability has `in_store` and `preorder` values. Five raw material entries have unknown availability; these remain blank until editorial confirmation and are tracked separately from content errors.
+- Forms and packaging are repeatable fields. Feed form is optional for supplements and raw materials, including C6000. Each form may later receive an image from the existing Cloudinary-backed Strapi Media Library and localized alternative text. No image is required to save a draft.
 - The nutrition source contains Romanian labels with numeric values, not paired translations. It is kept as a shared source field. The website must render localized labels or the data must be translated before HU publication.
-- PDF filenames are references from the spreadsheet only. `labelPdf` is empty until the files are actually uploaded or linked; a filename must never be presented as a working download.
+- Analytical values and PDF are optional where no such data or document exists, including product 830. PDF filenames are references from the spreadsheet only. `labelPdf` is empty until the files are actually uploaded or linked; a filename must never be presented as a working download.
 - Related product codes are kept as stable references and must be resolved to published products by the website; invalid/unpublished references should not render links.
 
 ## Source preparation
 
 `python3 scripts/prepare-catalog.py /path/to/workbook.xlsx` regenerates a local, ignored `data/catalog-import-draft.json` (requires `openpyxl`). The export has 7 categories, 52 unique product codes, and a `review` array. Its `publicationState` is `draft`; the file is **not** a Strapi API payload and is not auto-imported. The original spreadsheet remains the editorial source until the import is approved. Do not commit the unpublished content to this public repository.
 
-Current review items include a missing sheep-product slug, duplicate HU/RO turkey slugs, absent Romanian ingredients for one chicken product, two missing Romanian image alt texts, five raw materials with no availability, and incomplete technical fields for calcium products. Images are intentionally absent for all 52 products. Resolve the review items and verify both locales before publishing individual products.
+Review flags missing slugs, duplicate HU/RO slugs, absent Romanian ingredients and image alt text where present in the source. Unknown availability is listed separately under `pending`; leave it blank rather than inventing a value. Images are intentionally absent for all 52 products. Validate a fresh copy of the editorial workbook before import. The local copy used for the first export predates the user's stated corrections and must not be treated as the corrected version.
 
 ## Rollout
 
