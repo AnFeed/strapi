@@ -46,12 +46,12 @@ function assertStagingTarget() {
 }
 
 function decodeSource() {
-  const payload = process.env.CATALOG_IMPORT_GZIP_B64;
-  if (!payload) fail('CATALOG_IMPORT_GZIP_B64 is missing');
+  const payload = process.env.CATALOG_IMPORT_BR_B64;
+  if (!payload) fail('CATALOG_IMPORT_BR_B64 is missing');
 
   let source;
   try {
-    const json = zlib.gunzipSync(Buffer.from(payload, 'base64')).toString('utf8');
+    const json = zlib.brotliDecompressSync(Buffer.from(payload, 'base64')).toString('utf8');
     source = JSON.parse(json);
   } catch (error) {
     fail(`cannot decode catalog payload: ${error.message}`);
