@@ -1,5 +1,7 @@
 'use strict';
 
+const { runCatalogStagingImport } = require('./catalog-staging-import');
+
 module.exports = {
   /**
    * An asynchronous register function that runs before
@@ -13,8 +15,10 @@ module.exports = {
    * An asynchronous bootstrap function that runs before
    * your application gets started.
    *
-   * This gives you an opportunity to set up your data model,
-   * run jobs, or perform some special logic.
+   * The catalog import is inert unless the explicit staging-only environment
+   * guards are enabled. Production therefore keeps the normal no-op bootstrap.
    */
-  bootstrap(/*{ strapi }*/) {},
+  async bootstrap({ strapi }) {
+    await runCatalogStagingImport(strapi);
+  },
 };
