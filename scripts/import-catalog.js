@@ -2,7 +2,7 @@
 "use strict";
 
 /**
- * Import the private catalog draft into an isolated Strapi environment.
+ * Import the private catalog draft into an isolated Strapi 4 environment.
  *
  * Safety defaults:
  *   node scripts/import-catalog.js                 # validation only, no writes
@@ -126,21 +126,26 @@ async function upsertBase(plural, codeField, codeValue, locale, data) {
   if (!APPLY) return { action: existing ? "would-update" : "would-create", entry: existing };
 
   if (existing) {
-    const payload = await request("PUT", `/api/${plural}/${existing.id}?${qs({ locale })}`, { data });
+    const payload = await request("PUT", `/api/${plural}/${existing.id}`, { data });
     return { action: "updated", entry: payload.data };
   }
-  const payload = await request("POST", `/api/${plural}?${qs({ locale })}`, { data });
+
+  // Strapi 4 creates a non-default locale by putting locale in the data object.
+  const payload = await request("POST", `/api/${plural}`, { data: { ...data, locale } });
   return { action: "created", entry: payload.data };
 }
 
 async function createLocalization(plural, baseId, locale, data) {
   if (!APPLY) return { action: "would-create-localization", entry: null };
+
+  // Strapi 4 localization endpoints do not use the normal { data: ... } wrapper.
+  // Non-localized fields are copied from the base entry automatically.
   const payload = await request(
     "POST",
-    `/api/${plural}/${baseId}/localizations?${qs({ locale })}`,
-    { data }
+    `/api/${plural}/${baseId}/localizations`,
+    { locale, ...data }
   );
-  return { action: "created-localization", entry: payload.data };
+  return { action: "created-localization", entry: payload?.data || payload };
 }
 
 async function ensureLocalizedPair(plural, codeField, codeValue, huData, roData) {
