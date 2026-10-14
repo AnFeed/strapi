@@ -2,7 +2,9 @@
 """Create a reviewable, draft-only catalog export from the supplied workbook.
 
 Usage: python3 scripts/prepare-catalog.py /path/to/products.xlsx
-Requires openpyxl. No Strapi connection or database write is made.
+   or: python3 scripts/prepare-catalog.py /path/to/live-sheet-snapshot.json
+The JSON snapshot contains the two Google Sheet tab names mapped to row arrays.
+Requires openpyxl for XLSX. No Strapi connection or database write is made.
 """
 
 import json
@@ -68,10 +70,17 @@ def code(value):
     return str(int(value)) if isinstance(value, (int, float)) else str(value).strip()
 
 
+def rows(workbook, sheet):
+    source = workbook[sheet]
+    if isinstance(source, list):
+        return source[1:]
+    return source.iter_rows(min_row=2, values_only=True)
+
+
 def prepare(workbook):
     categories = []
     seen = set()
-    for row in workbook["Kategóriák és alkategóriák"].iter_rows(min_row=2, values_only=True):
+    for row in rows(workbook, "Kategóriák és alkategóriák"):
         if not row[0] or row[0] in seen:
             continue
         seen.add(row[0])
@@ -92,7 +101,7 @@ def prepare(workbook):
     products = []
     review = []
     pending = []
-    for row_no, row in enumerate(workbook["Termékkártyák"].iter_rows(min_row=2, values_only=True), 2):
+    for row_no, row in enumerate(rows(workbook, "Termékkártyák"), 2):
         if not row[2]:
             continue
         product_code = code(row[2])
@@ -149,7 +158,11 @@ def prepare(workbook):
 
 
 if __name__ == "__main__":
-    data = prepare(load_workbook(sys.argv[1], data_only=True))
+    source = Path(sys.argv[1])
+    workbook = (json.loads(source.read_text(encoding="utf-8"))
+                if source.suffix.lower() == ".json"
+                else load_workbook(source, data_only=True))
+    data = prepare(workbook)
     out = Path(__file__).resolve().parent.parent / "data" / "catalog-import-draft.json"
     out.parent.mkdir(exist_ok=True)
     out.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
