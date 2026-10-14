@@ -10,7 +10,11 @@
  *
  * Required env:
  *   STRAPI_URL=https://your-staging-strapi.example
- *   STRAPI_API_TOKEN=<write-capable staging token>
+ *   STRAPI_API_TOKEN=<write-capable staging token>   # only for --apply
+ *
+ * Additional write guards required for --apply:
+ *   CATALOG_IMPORT_TARGET=staging
+ *   CATALOG_IMPORT_EXPECT_HOST=<exact staging hostname>
  *
  * The script is idempotent by categoryCode/productCode + locale. It never
  * publishes entries, never touches the legacy Product collection, and never
@@ -25,6 +29,8 @@ const DATA_PATH = process.env.CATALOG_IMPORT_FILE ||
   path.join(__dirname, "..", "data", "catalog-import-draft.json");
 const BASE_URL = (process.env.STRAPI_URL || "").replace(/\/$/, "");
 const TOKEN = process.env.STRAPI_API_TOKEN || "";
+const IMPORT_TARGET = process.env.CATALOG_IMPORT_TARGET || "";
+const EXPECT_HOST = process.env.CATALOG_IMPORT_EXPECT_HOST || "";
 
 function fail(message) {
   console.error(`ERROR: ${message}`);
@@ -33,7 +39,29 @@ function fail(message) {
 
 if (!fs.existsSync(DATA_PATH)) fail(`Catalog export not found: ${DATA_PATH}`);
 if (!BASE_URL) fail("STRAPI_URL is required.");
-if (APPLY && !TOKEN) fail("STRAPI_API_TOKEN is required with --apply.");
+
+let targetUrl;
+try {
+  targetUrl = new URL(BASE_URL);
+} catch {
+  fail("STRAPI_URL must be a valid absolute URL.");
+}
+
+if (APPLY) {
+  if (!TOKEN) fail("STRAPI_API_TOKEN is required with --apply.");
+  if (IMPORT_TARGET !== "staging") {
+    fail("Refusing write: CATALOG_IMPORT_TARGET must be exactly 'staging'.");
+  }
+  if (!EXPECT_HOST) {
+    fail("Refusing write: CATALOG_IMPORT_EXPECT_HOST is required with --apply.");
+  }
+  if (targetUrl.hostname !== EXPECT_HOST) {
+    fail(
+      `Refusing write: STRAPI_URL host '${targetUrl.hostname}' does not match ` +
+      `CATALOG_IMPORT_EXPECT_HOST '${EXPECT_HOST}'.`
+    );
+  }
+}
 
 const source = JSON.parse(fs.readFileSync(DATA_PATH, "utf8"));
 
@@ -191,6 +219,7 @@ async function ensureLocalizedPair(plural, codeField, codeValue, huData, roData)
 
 async function main() {
   console.log(`${APPLY ? "APPLY" : "DRY RUN"}: ${source.categories.length} categories, ${source.products.length} products`);
+  console.log(`Target: ${targetUrl.hostname}${APPLY ? " (write guards passed)" : " (read-only validation)"}`);
   if (source.pending?.length) {
     console.log(`Pending editorial decisions preserved as blank: ${source.pending.length}`);
   }
