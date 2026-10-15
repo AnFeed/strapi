@@ -142,6 +142,7 @@ async function findByCode(strapi, uid, codeField, codeValue, locale) {
 
 function categoryData(item, locale) {
   return {
+    publishedAt: null,
     categoryCode: item.categoryCode,
     name: item.name?.[locale] || null,
     slug: item.slug?.[locale] || null,
@@ -153,6 +154,7 @@ function categoryData(item, locale) {
 
 function productData(item, locale, categoryId) {
   return {
+    publishedAt: null,
     productCode: item.productCode,
     category: categoryId,
     subcategory: item.subcategory?.[locale] || null,
