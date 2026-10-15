@@ -64,7 +64,8 @@ def packages(value):
     mapping = [("1kg", "kg_1"), ("5kg", "kg_5"),
                ("20kg", "kg_20"), ("25kg", "kg_25"),
                ("bigbag", "big_bag"), ("ömlesztett", "bulk")]
-    return [{"size": code} for token, code in mapping if token in text]
+    return [{"size": code} for token, code in mapping
+            if re.search(r"(?<!\d)" + re.escape(token), text)]
 
 
 def forms(value):
@@ -177,3 +178,4 @@ if __name__ == "__main__":
     out.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"{len(data['categories'])} categories, {len(data['products'])} products, "
           f"{len(data['review'])} review items, {len(data['pending'])} pending availability decisions: {out}")
+
