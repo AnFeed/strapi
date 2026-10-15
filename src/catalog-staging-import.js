@@ -409,5 +409,5 @@ async function runCatalogStagingImport(strapi) {
   );
 }
 
-module.exports = { runCatalogStagingImport };
+module.exports = { runCatalogStagingImport, assertStagingTarget };
 
