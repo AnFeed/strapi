@@ -101,7 +101,7 @@ function decodeSource() {
     }
     for (const locale of LOCALES) {
       const slugs = items.map((item) => item.slug?.[locale]);
-      if (slugs.some((slug) => !slug) || new Set(slugs).size !== slugs.length ||
+      if (slugs.some((slug) => !slug || !/^[A-Za-z0-9_.~-]+$/.test(slug)) || new Set(slugs).size !== slugs.length ||
           items.some((item) => !item.name?.[locale])) {
         fail(`invalid payload: missing names or missing/duplicate slugs (${field}, ${locale})`);
       }

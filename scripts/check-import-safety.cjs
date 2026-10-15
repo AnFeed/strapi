@@ -29,6 +29,7 @@ function load(overrides = {}, payload = source) {
     assert.throws(() => load({[key]:'production'}).assertStagingTarget());
   }
   assert.throws(() => load({}, {...source,products:[{...source.products[0],categoryCode:'missing'}]}).decodeSource());
+  assert.throws(() => load({}, {...source,products:[{...source.products[0],slug:{hu:'1%-os',ro:'1-percent'}}]}).decodeSource());
   assert.throws(() => load({CATALOG_IMPORT_EXPECT_PRODUCTS:'2'}, {...source,products:[source.products[0],source.products[0]]}).decodeSource());
   let writes = 0;
   const strapi = {contentTypes:Object.fromEntries(['api::catalog-category.catalog-category','api::catalog-product.catalog-product','api::product.product','api::blog.blog'].map(uid=>[uid,{}])),db:{query:()=>({count:async()=>0})},log:{info:()=>{}},entityService:{create:()=>writes++,update:()=>writes++},plugin:()=>{throw new Error('check must not initialize locales');}};

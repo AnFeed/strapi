@@ -39,6 +39,20 @@ def split(value, *, shared=False):
 
 
 def slug_pair(value):
+    pair = raw_slug_pair(value)
+    for locale, slug in pair.items():
+        if not slug:
+            continue
+        # Strapi UID fields reject percent signs; spell out the unit in URLs.
+        if locale == "hu":
+            slug = slug.replace("%-os", "-szazalekos").replace("%", "-szazalek")
+        else:
+            slug = slug.replace("%", "-la-suta")
+        pair[locale] = slug
+    return pair
+
+
+def raw_slug_pair(value):
     if value is None:
         return {"hu": None, "ro": None}
     value = str(value).strip()
@@ -142,6 +156,10 @@ def prepare(workbook):
         }
         if not item["slug"]["hu"] or not item["slug"]["ro"]:
             review.append({"row": row_no, "productCode": product_code, "issue": "missing localized slug"})
+        for locale, slug in item["slug"].items():
+            if slug and not re.fullmatch(r"[A-Za-z0-9_.~-]+", slug):
+                review.append({"row": row_no, "productCode": product_code,
+                               "issue": f"invalid {locale} slug"})
         if not item["ingredients"]["ro"]:
             review.append({"row": row_no, "productCode": product_code, "issue": "missing Romanian ingredients"})
         if not item["imageAlt"]["ro"]:
