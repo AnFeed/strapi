@@ -1,6 +1,6 @@
 # Product catalog migration (draft)
 
-The existing `Product` collection contains seven older category pages and is used by the current website. This change adds separate `Catalog product` and `Product category` collections. It does not change or delete the old collection, publish an entry, import data on startup, or alter API permissions. The new collections have Draft & Publish and HU/RO localization.
+The existing `Product` collection contains seven older category pages and is used by the current website. This change adds separate `Catalog product` and `Product category` collections. It does not change or delete the old collection, publish an entry, or alter API permissions. The bootstrap importer is disabled by default and accepts only an explicitly enabled staging target. The new collections have Draft & Publish and HU/RO localization.
 
 ## Editorial fields
 
@@ -23,3 +23,13 @@ Review flags missing slugs, duplicate HU/RO slugs, absent Romanian ingredients a
 2. Review the draft export, correct source issues, and import by product code into the new collections. Link HU/RO localizations and category relations; leave entries in draft. Make imports idempotent and produce a per-product audit before any production run.
 3. Point a website preview at the new collections using a server-side read-only API token. Keep existing pages live until the new category and product routes, SEO, 404 behavior, and both locales are checked. Do not put that token in a `NEXT_PUBLIC_` variable.
 4. Publish only reviewed entries, switch website routes, and retain the old Product collection until rollback is no longer needed. Cloudinary media stays in the existing account.
+
+## Localized fields and URLs
+
+Editorial fields explicitly enable localization. Shared product/category codes and shared product data keep localization disabled. Slugs use the string type with a URL-safe character pattern. Catalog lifecycle checks reject duplicate slugs or codes within one locale while allowing the same brand slug in different locales. Percentage units are spelled out in derived export slugs; the source workbook is unchanged.
+
+## Bootstrap modes
+
+`CATALOG_STAGING_IMPORT=0` disables the importer (the default). `check` validates the private source and reads counts without catalog writes. `1` imports drafts and verifies source field values, localization links, category relations, forms, packages and availability. `verify` checks already imported records without writing. The bootstrap path checks the pinned staging identity, public hostname and private database hostname. Both import paths explicitly set `publishedAt: null`.
+
+Run local checks with `node scripts/check-import-safety.cjs`, `node scripts/check-catalog-schemas.cjs`, and `node scripts/check-catalog-lifecycles.cjs`.
