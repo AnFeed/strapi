@@ -7,7 +7,9 @@
     "develop": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
-    "strapi": "strapi"
+    "strapi": "strapi",
+    "catalog:check": "node scripts/import-catalog.js",
+    "catalog:import": "node scripts/import-catalog.js --apply"
   },
   "dependencies": {
     "@retikolo/drag-drop-content-types": "^1.5.2",
