@@ -35,9 +35,9 @@
       }
     },
     "slug": {
-      "type": "uid",
-      "targetField": "name",
+      "type": "string",
       "required": true,
+      "regex": "^[A-Za-z0-9_.~-]+$",
       "pluginOptions": {
         "i18n": {
           "localized": true
