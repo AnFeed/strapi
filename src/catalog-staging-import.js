@@ -248,7 +248,7 @@ async function verifyImportedCatalog(strapi, source, legacyCountBefore) {
   });
   const products = await strapi.db.query(PRODUCT_UID).findMany({
     where: { locale: { $in: LOCALES } },
-    populate: ['localizations'],
+    populate: ['localizations', 'category', 'forms', 'packages'],
   });
 
   const expectedCategoryRows = source.categories.length * LOCALES.length;
@@ -276,10 +276,41 @@ async function verifyImportedCatalog(strapi, source, legacyCountBefore) {
   const productByCodeLocale = new Map(
     products.map((entry) => [`${entry.productCode}:${entry.locale}`, entry])
   );
+  const categoryByCodeLocale = new Map(
+    categories.map((entry) => [`${entry.categoryCode}:${entry.locale}`, entry])
+  );
+  function verifyFields(entry, expected, label) {
+    for (const [key, value] of Object.entries(expected)) {
+      if (['category', 'forms', 'packages'].includes(key)) continue;
+      if (entry[key] !== value) fail(`verification failed: ${label} field ${key}`);
+    }
+  }
+  for (const item of source.categories) {
+    for (const locale of LOCALES) {
+      const entry = categoryByCodeLocale.get(`${item.categoryCode}:${locale}`);
+      const other = categoryByCodeLocale.get(`${item.categoryCode}:${locale === 'hu' ? 'ro' : 'hu'}`);
+      if (!entry || !other || !pairIsLinked(entry, other)) {
+        fail(`verification failed: category localization ${item.categoryCode}`);
+      }
+      verifyFields(entry, categoryData(item, locale), `category ${item.categoryCode} (${locale})`);
+    }
+  }
   for (const item of source.products) {
     for (const locale of LOCALES) {
       const entry = productByCodeLocale.get(`${item.productCode}:${locale}`);
       if (!entry) fail(`verification failed: missing ${item.productCode} (${locale})`);
+      const category = categoryByCodeLocale.get(`${item.categoryCode}:${locale}`);
+      const other = productByCodeLocale.get(`${item.productCode}:${locale === 'hu' ? 'ro' : 'hu'}`);
+      if (!category || entry.category?.id !== category.id || !other || !pairIsLinked(entry, other)) {
+        fail(`verification failed: product relations ${item.productCode} (${locale})`);
+      }
+      verifyFields(entry, productData(item, locale, category.id), `product ${item.productCode} (${locale})`);
+      for (const [field, key] of [['forms', 'form'], ['packages', 'size']]) {
+        if (JSON.stringify((entry[field] || []).map((value) => value[key])) !==
+            JSON.stringify((item[field] || []).map((value) => value[key]))) {
+          fail(`verification failed: ${field} mismatch for ${item.productCode} (${locale})`);
+        }
+      }
       const shouldBeBlank = pendingCodes.has(String(item.productCode));
       if (shouldBeBlank && entry.availability !== null) {
         fail(`verification failed: pending availability was filled for ${item.productCode}`);
