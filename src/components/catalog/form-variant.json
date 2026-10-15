@@ -1,16 +1,25 @@
 {
   "collectionName": "components_catalog_form_variants",
-  "info": { "displayName": "Feed form", "description": "One feed form and its optional Cloudinary image" },
+  "info": {
+    "displayName": "Forma / Formă",
+    "description": "One feed form and its optional Cloudinary image"
+  },
   "attributes": {
     "form": {
       "type": "enumeration",
-      "enum": ["crumbled", "meal", "pellet"]
+      "enum": [
+        "crumbled",
+        "meal",
+        "pellet"
+      ]
     },
     "image": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

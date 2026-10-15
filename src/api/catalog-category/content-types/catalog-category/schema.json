@@ -4,7 +4,7 @@
   "info": {
     "singularName": "catalog-category",
     "pluralName": "catalog-categories",
-    "displayName": "Product category",
+    "displayName": "Kategóriák / Categorii",
     "description": "Categories for the new product catalog; the legacy Product collection is untouched."
   },
   "options": {

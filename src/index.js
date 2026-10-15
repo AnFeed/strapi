@@ -1,6 +1,7 @@
 'use strict';
 
 const { runCatalogStagingImport } = require('./catalog-staging-import');
+const { runCatalogEditorSetup } = require('./catalog-editor-setup');
 
 module.exports = {
   /**
@@ -20,5 +21,6 @@ module.exports = {
    */
   async bootstrap({ strapi }) {
     await runCatalogStagingImport(strapi);
+    await runCatalogEditorSetup(strapi);
   },
 };
