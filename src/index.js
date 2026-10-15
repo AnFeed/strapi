@@ -2,6 +2,7 @@
 
 const { runCatalogStagingImport } = require('./catalog-staging-import');
 const { runCatalogEditorSetup } = require('./catalog-editor-setup');
+const { runCatalogPreviewAccess } = require('./catalog-preview-access');
 
 module.exports = {
   /**
@@ -22,5 +23,6 @@ module.exports = {
   async bootstrap({ strapi }) {
     await runCatalogStagingImport(strapi);
     await runCatalogEditorSetup(strapi);
+    await runCatalogPreviewAccess(strapi);
   },
 };
