@@ -12,6 +12,15 @@ function fail(message) {
 }
 
 function assertStagingTarget() {
+  // Pin the sandbox identity; matching two caller-supplied values is insufficient.
+  const allowed = {
+    RAILWAY_PROJECT_ID: '1a0d10f2-c472-416d-972d-48de99a73c00',
+    RAILWAY_ENVIRONMENT_ID: 'c899072a-069b-4712-958b-4dff2e9038ed',
+    RAILWAY_SERVICE_ID: '1fbc432c-eba0-420b-9ff0-f3338666863d',
+  };
+  for (const [key, value] of Object.entries(allowed)) {
+    if (process.env[key] !== value) fail(`refusing operation: unexpected ${key}`);
+  }
   if (process.env.CATALOG_IMPORT_TARGET !== 'staging') {
     fail("refusing write: CATALOG_IMPORT_TARGET must be exactly 'staging'");
   }
@@ -43,6 +52,18 @@ function assertStagingTarget() {
   if (!railwayEnvironment || railwayEnvironment !== 'staging') {
     fail("refusing write: RAILWAY_ENVIRONMENT_NAME must be exactly 'staging'");
   }
+
+  let databaseHost;
+  try {
+    databaseHost = new URL(process.env.DATABASE_PRIVATE_URL).hostname;
+  } catch {
+    fail('refusing operation: invalid database URL');
+  }
+  const expectedDatabaseHost = process.env.CATALOG_IMPORT_EXPECT_DATABASE_HOST;
+  if (!expectedDatabaseHost || databaseHost !== expectedDatabaseHost ||
+      !databaseHost.endsWith('.railway.internal')) {
+    fail('refusing operation: database must be the staging private Postgres service');
+  }
 }
 
 function decodeSource() {
@@ -71,6 +92,28 @@ function decodeSource() {
   }
   if (!expectedProducts || source.products.length !== expectedProducts) {
     fail(`product count mismatch: got ${source.products.length}, expected ${expectedProducts}`);
+  }
+
+  for (const [items, field] of [[source.categories, 'categoryCode'], [source.products, 'productCode']]) {
+    const codes = items.map((item) => String(item[field] || ''));
+    if (codes.some((code) => !code) || new Set(codes).size !== codes.length) {
+      fail(`invalid payload: missing or duplicate ${field}`);
+    }
+    for (const locale of LOCALES) {
+      const slugs = items.map((item) => item.slug?.[locale]);
+      if (slugs.some((slug) => !slug) || new Set(slugs).size !== slugs.length ||
+          items.some((item) => !item.name?.[locale])) {
+        fail(`invalid payload: missing names or missing/duplicate slugs (${field}, ${locale})`);
+      }
+    }
+  }
+  const categoryCodes = new Set(source.categories.map((item) => String(item.categoryCode)));
+  const productCodes = new Set(source.products.map((item) => String(item.productCode)));
+  for (const item of source.products) {
+    if (!categoryCodes.has(String(item.categoryCode)) ||
+        (item.relatedProductCodes || []).some((code) => !productCodes.has(String(code)))) {
+      fail(`invalid payload: unresolved relation for ${item.productCode}`);
+    }
   }
 
   return source;
@@ -262,10 +305,30 @@ async function verifyImportedCatalog(strapi, source, legacyCountBefore) {
 }
 
 async function runCatalogStagingImport(strapi) {
-  if (process.env.CATALOG_STAGING_IMPORT !== '1') return;
+  const mode = process.env.CATALOG_STAGING_IMPORT;
+  if (mode !== '1' && mode !== 'check' && mode !== 'verify') return;
 
   assertStagingTarget();
   const source = decodeSource();
+  const counts = {};
+  for (const uid of [CATEGORY_UID, PRODUCT_UID, LEGACY_PRODUCT_UID, 'api::blog.blog']) {
+    if (strapi.contentTypes[uid]) counts[uid] = await strapi.db.query(uid).count();
+  }
+  strapi.log.info(`[catalog-staging-import] preflight ${JSON.stringify({ mode, sourceCategories: source.categories.length, sourceProducts: source.products.length, pending: source.pending?.length || 0, counts })}`);
+  if (mode === 'check') {
+    strapi.log.info('[catalog-staging-import] read-only check passed; no catalog data written');
+    return;
+  }
+  if (mode === 'verify') {
+    const result = await verifyImportedCatalog(strapi, source, counts[LEGACY_PRODUCT_UID] ?? null);
+    strapi.log.info(`[catalog-staging-import] read-only verification passed ${JSON.stringify(result)}`);
+    return;
+  }
+  for (const uid of [CATEGORY_UID, PRODUCT_UID]) {
+    if (await strapi.db.query(uid).count({ where: { publishedAt: { $notNull: true } } })) {
+      fail('refusing import: target catalog contains published records');
+    }
+  }
   await ensureLocales(strapi);
 
   const legacyCountBefore = strapi.contentTypes[LEGACY_PRODUCT_UID]
@@ -314,3 +377,4 @@ async function runCatalogStagingImport(strapi) {
 }
 
 module.exports = { runCatalogStagingImport };
+
