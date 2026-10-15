@@ -22,7 +22,15 @@ async function runCatalogPreviewAccess(strapi) {
   if (!/^[a-f0-9]{64}$/.test(secret || '')) throw Error('A private random preview key is required');
   const service = strapi.service('admin::api-token');
   const hash = service.hash(secret);
-  let token = await service.getBy({ name: NAME });
+  const readToken = async () => {
+    // The public admin service deliberately omits accessKey from its projection.
+    // Read only the stored hash separately; neither value is returned or logged.
+    const metadata = await service.getBy({ name: NAME });
+    if (!metadata) return null;
+    const stored = await strapi.db.query('admin::api-token').findOne({ where: { id: metadata.id }, select: ['accessKey'] });
+    return { ...metadata, accessKey: stored?.accessKey };
+  };
+  let token = await readToken();
   if (token) {
     // Never replace or broaden an existing credential on a rerun.
     verifyToken(token, hash);
@@ -31,7 +39,7 @@ async function runCatalogPreviewAccess(strapi) {
     try {
       // Store only the native Strapi hash. The unused generated key is never logged.
       await strapi.db.query('admin::api-token').update({ where: { id: created.id }, data: { accessKey: hash } });
-      token = await service.getBy({ name: NAME });
+      token = await readToken();
       verifyToken(token, hash);
     } catch (error) {
       await service.revoke(created.id);

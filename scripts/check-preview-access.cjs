@@ -9,8 +9,8 @@ vm.runInNewContext(fs.readFileSync('src/catalog-preview-access.js', 'utf8'), { m
 const { runCatalogPreviewAccess, verifyToken, PERMISSIONS, NAME } = moduleFixture.exports;
 (async () => {
   let token, creates = 0, updates = 0, revokes = 0;
-  const service = { hash: () => 'fixture-hash', getBy: async () => token, create: async input => { creates++; token = { ...input, id: 1, accessKey: 'generated-unused', expiresAt: new Date(Date.now() + 86400000) }; return token; }, revoke: async () => { revokes++; token = null; } };
-  const app = { service: uid => { assert.equal(uid, 'admin::api-token'); return service; }, db: { query: uid => { assert.equal(uid, 'admin::api-token'); return { update: async ({ data }) => { updates++; Object.assign(token, data); } }; } }, log: { info: value => { assert.ok(!value.includes('fixture-hash')); } } };
+  const service = { hash: () => 'fixture-hash', getBy: async () => { if (!token) return null; const { accessKey, ...metadata } = token; return metadata; }, create: async input => { creates++; token = { ...input, id: 1, accessKey: 'generated-unused', expiresAt: new Date(Date.now() + 86400000) }; return token; }, revoke: async () => { revokes++; token = null; } };
+  const app = { service: uid => { assert.equal(uid, 'admin::api-token'); return service; }, db: { query: uid => { assert.equal(uid, 'admin::api-token'); return { findOne: async ({ where, select }) => { assert.equal(where.id, token.id); assert.equal(select.join(','), 'accessKey'); return { accessKey: token.accessKey }; }, update: async ({ data }) => { updates++; Object.assign(token, data); } }; } }, log: { info: value => { assert.ok(!value.includes('fixture-hash')); } } };
   await runCatalogPreviewAccess(app);
   assert.equal(guards, 0); assert.equal(creates, 0);
   env.CATALOG_PREVIEW_ACCESS_SETUP = '1'; env.CATALOG_PREVIEW_READ_TOKEN = 'f'.repeat(64); env.WRONG_TARGET = '1';
