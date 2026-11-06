@@ -8,19 +8,21 @@ module.exports = {
     const Message = result.Message;
 
     setTimeout(async () => {
-      try {
-        await strapi.plugins["email-designer"].services.email.sendTemplatedEmail(
-          {
-            to: email,
-            from: "noreply@anfeed.ro",
-          },
-          {
-            templateReferenceId: 2,
-            subject: `Anfeed Contact`,
-          }
-        );
-      } catch (err) {
-        console.error("Hiba az auto-reply emailnel:", err);
+      if (email) {
+        try {
+          await strapi.plugins["email-designer"].services.email.sendTemplatedEmail(
+            {
+              to: email,
+              from: "noreply@anfeed.ro",
+            },
+            {
+              templateReferenceId: 2,
+              subject: `Anfeed Contact`,
+            }
+          );
+        } catch (err) {
+          console.error("Hiba az auto-reply emailnel:", err);
+        }
       }
 
       try {
@@ -33,7 +35,7 @@ module.exports = {
           FirstName: ${FirstName}<br>
           LastName: ${LastName}<br>
           Phone: ${Phone}<br>
-          Email: ${email}<br>
+          Email: ${email || "—"}<br>
           Message: ${Message}<br>
           `,
         });
