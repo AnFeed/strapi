@@ -9,6 +9,13 @@ module.exports = {
     // Preview submissions are explicitly marked by the server, never by the form UI.
     const isFarmPreviewTest = typeof Message === "string" && Message.startsWith("[ANFEED FARM PREVIEW TEST]\\n");
 
+    const isFarmContact = isFarmPreviewTest || (typeof Message === "string" && (
+      (Message.startsWith("Specie: ") && Message.includes("\nCategorie: ") &&
+        Message.includes("\nCantitate: ") && Message.includes("\nJudeț: ")) ||
+      (Message.startsWith("Állatfaj / Specie: ") && Message.includes("\nMennyiség / Cantitate: ") &&
+        Message.includes("\nMegye / Județ: "))
+    ));
+
     setTimeout(async () => {
       if (email && !isFarmPreviewTest) {
         try {
@@ -34,7 +41,7 @@ module.exports = {
             ? ["bedoa@anfeed.ro"]
             : ["comenzi@anfeed.ro", "bedoa@anfeed.ro", "laszloi@anfeed.ro", "manm@anfeed.ro"],
           from: "noreply@anfeed.ro",
-          subject: isFarmPreviewTest ? "[TEST] AnFeed farm ajánlatkérés" : "Contact",
+          subject: isFarmPreviewTest ? "[TEST] Contact fermier" : isFarmContact ? "Contact fermier" : "Contact",
           html: `
           FirstName: ${FirstName}<br>
           LastName: ${LastName}<br>
